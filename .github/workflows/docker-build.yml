@@ -1,0 +1,21 @@
+name: Docker Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: |
+          docker build -t flask-lab:v1 .
+
+      - name: Verify Image
+        run: |
+          docker images
