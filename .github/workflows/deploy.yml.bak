@@ -20,9 +20,11 @@ jobs:
       run: |
         kubectl get nodes
 
-    - name: Restart Deployment
+    - name: Update Deployment Image
       run: |
-        kubectl rollout restart deployment/flask-app -n dev
+        kubectl set image deployment/flask-app \
+         flask-app=${{ secrets.DOCKER_USERNAME }}/flask-lab:${{ github.sha }} \
+         -n dev
 
     - name: Verify Rollout
       run: |
