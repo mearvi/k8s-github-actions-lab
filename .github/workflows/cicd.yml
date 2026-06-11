@@ -55,6 +55,10 @@ jobs:
           kubectl set image deployment/flask-app \
             flask-app=${{ secrets.DOCKER_USERNAME }}/flask-lab:${{ github.sha }} \
             -n dev
+                
+          kubectl annotate deployment/flask-app \
+            kubernetes.io/change-cause="Deploy commit ${{ github.sha }}" \
+            -n dev --overwrite
 
       - name: Verify Rollout
         run: |
